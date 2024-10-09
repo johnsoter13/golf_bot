@@ -1,0 +1,54 @@
+# Yarn - Disable no-install support
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+node_modules
+dist
+*.env
+*.log
+.DS_Store
+coverage
+cypress/videos/
+cypress/screenshots/
+package-lock.json
+
+# IDE files and folders
+.project
+.idea
+.vscode/*
+!.vscode/settings.json
+
+.vsls.json
+
+# gh pages branches
+.githubPages
+
+# tmp folder - includes extracted translations
+tmp
+
+# Playwright
+playwright-report
+blob-report
+test-results
+.cache
+
+sourceMap
+
+# csv file
+cookie-consent-details.csv\
+
+# swc
+.swc
+
+# lint reports
+stylelint-report.html
+eslint-report.html
+
+# Others
+stats.json
+*.tar.gz
