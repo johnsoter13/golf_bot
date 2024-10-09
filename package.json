@@ -1,0 +1,24 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --import=extensionless/register index.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "extensionless": "^1.9.9",
+    "puppeteer": "^23.5.1"
+  },
+  "extensionless": {
+    "lookFor": ["js", "mjs", "cjs"]
+  }
+}
