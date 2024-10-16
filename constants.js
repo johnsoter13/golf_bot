@@ -26,6 +26,9 @@ export const COURSE_MAP = {
   YELLOW: '2435',
 }
 
+export const TEE_TIME_PLAYER_SIZE = '4'
+export const TEE_TIME_DATE = '10-23-2024'
+
 export const LOGIN_CREDENTIALS = {
   EMAIL: 'john.soter@outlook.com',
   PASSWORD: 'Mybethpagepassword1!',

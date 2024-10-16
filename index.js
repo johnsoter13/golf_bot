@@ -1,12 +1,44 @@
 import puppeteer from 'puppeteer'
+
 import {
   HTML_SELECTORS,
   LINKS,
   COURSE_MAP,
   LOGIN_CREDENTIALS,
+  TEE_TIME_PLAYER_SIZE,
+  TEE_TIME_DATE,
 } from './constants.js'
 
-async function retryPageTillTeeTimeAvailable(page) {}
+async function confirmTeeTime(page, size) {
+  await selectPlayerSize(page, size)
+
+  await page.waitForSelector(HTML_SELECTORS.CONFIRM_TEE_TIME_BUTTON)
+  // await page.click(HTML_SELECTORS.CONFIRM_TEE_TIME_BUTTON)
+}
+
+async function retryPageTillTeeTimeAvailable(page, size) {
+  const desiredDate = new Date()
+  // hours, minutes, seconds, ms
+  desiredDate.setHours(19, 0, 0, 0)
+  const currentDate = new Date()
+
+  if (currentDate >= desiredDate) {
+    await page.click(
+      `#nav > div > div:nth-child(3) > div > div > a:nth-child(${size})`
+    )
+    console.log('conditions met')
+    await page.waitForSelector(HTML_SELECTORS.FIRST_AVAILABLE_TIME)
+    await page.click(HTML_SELECTORS.FIRST_AVAILABLE_TIME)
+  }
+
+  if (currentDate < desiredDate) {
+    setTimeout(() => {
+      console.log('currentDate: ', currentDate)
+      console.log('desiredDate: ', desiredDate)
+      retryPageTillTeeTimeAvailable(page, size)
+    }, 100)
+  }
+}
 
 async function setDateAndCourse(page, course, date) {
   await page.select(HTML_SELECTORS.COURSE_SELECT_DROPDOWN, course)
@@ -56,20 +88,16 @@ async function selectPlayerSize(page, size) {
 }
 
 async function start() {
-  const browser = await puppeteer.launch({ headless: false })
+  const browser = await puppeteer.launch({ headless: false, dumpio: true })
   const page = await browser.newPage()
+  await page.setDefaultTimeout(60000)
 
   await loginAndNavigateToTeeTimes(page)
-  await setDateAndCourse(page, COURSE_MAP.BLUE, '10-23-2024')
+  await setDateAndCourse(page, COURSE_MAP.BLUE, TEE_TIME_DATE)
+  await retryPageTillTeeTimeAvailable(page, TEE_TIME_PLAYER_SIZE)
+  await confirmTeeTime(page, TEE_TIME_PLAYER_SIZE)
 
-  await page.waitForSelector(HTML_SELECTORS.FIRST_AVAILABLE_TIME)
-  await page.click(HTML_SELECTORS.FIRST_AVAILABLE_TIME)
-
-  await selectPlayerSize(page, '4')
-
-  await page.waitForSelector(HTML_SELECTORS.CONFIRM_TEE_TIME_BUTTON)
-  // await page.click(HTML_SELECTORS.CONFIRM_TEE_TIME_BUTTON)
-  await browser.close()
+  // await browser.close()
 }
 
 start()
