@@ -8,7 +8,7 @@ For Windows, install [gitbash](https://git-scm.com/downloads) and [nvm-windows](
 
 ```bash
 nvm install 22.9
-cd webex-web-client
+cd golf_bot
 nvm use
 npm install
 ```
