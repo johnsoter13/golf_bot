@@ -3,7 +3,6 @@ import puppeteer from 'puppeteer'
 import {
   HTML_SELECTORS,
   LINKS,
-  COURSE_MAP,
   LOGIN_CREDENTIALS,
   TEE_TIME_PLAYER_SIZE,
   TEE_TIME_DATE,
