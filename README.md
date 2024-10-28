@@ -2,9 +2,11 @@
 
 ## Setup
 
-You need to have an IDE (preferable visual studio code), npm installed, and Node v20.x or above and npm installed globally. We suggest you use [nvm](https://github.com/creationix/nvm) for node version management. [Configure nvm](#configuring-nvm), then run the following:
+You need npm installed, and Node v20.x or above and npm installed globally. I suggest you use [nvm](https://github.com/creationix/nvm) for node version management. [Configure nvm](#configuring-nvm).
 
 For Windows, install [gitbash](https://git-scm.com/downloads) and [nvm-windows](https://github.com/coreybutler/nvm-windows).
+
+Open a terminal and run these commands sequentially:
 
 ```bash
 nvm install 22.9
