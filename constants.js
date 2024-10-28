@@ -13,7 +13,7 @@ export const HTML_SELECTORS = {
   TEETIME_FORM: '.datepicker.form-control',
   DATE_SELECT_DROPDOWN: '#date-menu',
   COURSE_SELECT_DROPDOWN: '#schedule_select',
-  FIRST_AVAILABLE_TIME: '.time.time-tile:nth-child(1)',
+  DESIRED_TEE_TIME: '.time.time-tile:nth-child(4)',
   CONFIRM_TEE_TIME_BUTTON:
     '#book_time > div > div.modal-footer > button.btn.btn-success.js-book-button.pull-left',
 }
@@ -28,7 +28,7 @@ export const COURSE_MAP = {
 
 export const TEE_TIME_COURSE = COURSE_MAP.BLACK
 export const TEE_TIME_PLAYER_SIZE = '4'
-export const TEE_TIME_DATE = '10-23-2024'
+export const TEE_TIME_DATE = '10-31-2024'
 
 export const LOGIN_CREDENTIALS = {
   EMAIL: 'john.soter@outlook.com',

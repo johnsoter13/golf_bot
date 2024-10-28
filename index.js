@@ -15,14 +15,21 @@ async function confirmTeeTime(page, size) {
   await page.waitForSelector(HTML_SELECTORS.CONFIRM_TEE_TIME_BUTTON)
 
   // if you want to test the bot, comment the line below out so that it won't actually reserve the tee time for you. Bethpage limits the amount of cancellations you can make
-  await page.click(HTML_SELECTORS.CONFIRM_TEE_TIME_BUTTON)
+  // await page.click(HTML_SELECTORS.CONFIRM_TEE_TIME_BUTTON)
 }
 
 async function retryPageTillTeeTimeAvailable(page, size) {
   const desiredDate = new Date()
   // hours, minutes, seconds, ms
   // Bethpage releases tee times at 7:00PM which equals 19, 0, 0, 0
-  desiredDate.setHours(19, 0, 0, 0)
+  // Date API is dependent on your connection to whatever server is giving you the time
+  // At my apartment, Date API is ahead of https://www.timeanddate.com/worldclock/ by about 1 second and 300 milliseconds
+  // https://www.timeanddate.com/worldclock/ is what I'm assuming bethpage uses to release tee times
+  // Hence why I set the desired date to 7:00:01:300 PM EST
+  // If you want to calculate the offset, record your screen, run the bot with timeanddate open at the same time
+  // use the video recording to see the difference between timeanddate and your console output
+  // You may need to adjust the time if you're too early or too late
+  desiredDate.setHours(19, 0, 1, 300)
   const currentDate = new Date()
 
   if (currentDate >= desiredDate) {
@@ -30,16 +37,16 @@ async function retryPageTillTeeTimeAvailable(page, size) {
       `#nav > div > div:nth-child(3) > div > div > a:nth-child(${size})`
     )
     console.log('conditions met')
-    await page.waitForSelector(HTML_SELECTORS.FIRST_AVAILABLE_TIME)
-    await page.click(HTML_SELECTORS.FIRST_AVAILABLE_TIME)
+    await page.waitForSelector(HTML_SELECTORS.DESIRED_TEE_TIME)
+    await page.click(HTML_SELECTORS.DESIRED_TEE_TIME)
   }
 
   if (currentDate < desiredDate) {
     setTimeout(() => {
       console.log('currentDate: ', currentDate)
-      console.log('desiredDate: ', desiredDate)
+      // console.log('desiredDate: ', desiredDate)
       retryPageTillTeeTimeAvailable(page, size)
-    }, 100)
+    }, 1)
   }
 }
 
